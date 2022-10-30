@@ -21,6 +21,10 @@ def token_required(ip_token_map):
             print(list(request.form.listvalues()))
             print("######################6")
             print(request.method)
+            print("######################7")
+            print(request.form)
+            print("######################8")
+            print(request.remote_addr)
 
 
             token = None
