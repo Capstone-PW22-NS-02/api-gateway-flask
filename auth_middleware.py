@@ -14,11 +14,11 @@ def token_required(ip_token_map):
             print("######################2")
             print(request.data)
             print("######################3")
-            print(request.args)
+            print(list(request.args.listvalues()))
             print("######################4")
             print(request.endpoint)
             print("######################5")
-            print(request.form)
+            print(list(request.form.listvalues()))
             print("######################6")
             print(request.method)
 
