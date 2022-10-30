@@ -7,6 +7,7 @@ def token_required(ip_token_map):
         def wrapper(*args, **kwargs):
             
             ip  = request.remote_addr
+            print("IP : ", ip)
             token = None
             if "Authorization" in request.headers:
                 token = request.headers["Authorization"]
@@ -28,6 +29,8 @@ def token_required(ip_token_map):
 
             elif token not in ip_token_map:
                 ip_token_map[token] = ip
+                print("Map : ",ip_token_map)
+
 
             return api_caller(*args, **kwargs)
 

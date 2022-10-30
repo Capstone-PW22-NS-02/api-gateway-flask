@@ -18,8 +18,6 @@ def index():
         
         # data = requests.get("http://inventory-service:8001/getProducts")
         data = requests.get("https://inventory-service-capstone.herokuapp.com/getProducts")
-        print(data)
-        print(ip_token_map)
         data = data.json()
         return data
 
