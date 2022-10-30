@@ -9,7 +9,20 @@ def token_required(ip_token_map):
             ip  = request.environ["HTTP_X_FORWARDED_FOR"]
             # ip  = request.remote_addr
             # print("IP : ", ip)
+            print("######################1")
             print(request.headers)
+            print("######################2")
+            print(request.data)
+            print("######################3")
+            print(request.args)
+            print("######################4")
+            print(request.endpoint)
+            print("######################5")
+            print(request.form)
+            print("######################6")
+            print(request.method)
+
+
             token = None
             if "Authorization" in request.headers:
                 token = request.headers["Authorization"]
