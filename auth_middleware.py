@@ -6,7 +6,8 @@ def token_required(ip_token_map):
     def decorator(api_caller):
         def wrapper(*args, **kwargs):
             
-            ip  = request.remote_addr
+            ip  = request.environ["REMOTE_ADDR"]
+            # ip  = request.remote_addr
             print("IP : ", ip)
             token = None
             if "Authorization" in request.headers:
