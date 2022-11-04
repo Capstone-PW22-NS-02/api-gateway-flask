@@ -1,13 +1,14 @@
 
-from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
-from auth_middleware import token_required 
+from flask import Flask, request, flash, redirect, url_for, jsonify
+from auth_middleware import token_required
+from flask_cors import CORS
 import requests
 import os
 import json
 
 app = Flask(__name__, template_folder='.')
 # app.secret_key = 'thisisjustarandomstring'
-
+CORS(app)
 
 ip_token_map = {}
 
