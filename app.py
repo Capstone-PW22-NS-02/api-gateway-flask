@@ -15,8 +15,8 @@ ip_token_map = {}
 @token_required(ip_token_map)
 def inventory():
         
-    data = requests.get("http://localhost:8001/getProducts")
-    # data = requests.get("https://inventory-service-capstone.herokuapp.com/getProducts")
+    # data = requests.get("http://localhost:8001/getProducts")
+    data = requests.get("https://inventory-service-capstone.herokuapp.com/getProducts")
     data = data.json()
     # print(data)
     return jsonify(data)
@@ -29,7 +29,7 @@ def addProduct():
     body = request.get_json()
     print(body)
     # data = requests.post("http://localhost:8001/addProduct",json=body)
-    data = requests.post("https://inventory-service-capstone.herokuapp.com/getProducts", json=body)
+    data = requests.post("https://inventory-service-capstone.herokuapp.com/addProduct", json=body)
     data = data.json()
     # data = {'msg':"Data added successfully"}
     return jsonify(data)
