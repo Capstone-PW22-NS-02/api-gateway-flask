@@ -28,8 +28,8 @@ def addProduct():
 
     body = request.get_json()
     print(body)
-    data = requests.post("http://localhost:8001/addProduct",json=body)
-    # data = requests.post("https://inventory-service-capstone.herokuapp.com/getProducts")
+    # data = requests.post("http://localhost:8001/addProduct",json=body)
+    data = requests.post("https://inventory-service-capstone.herokuapp.com/getProducts", json=body)
     data = data.json()
     # data = {'msg':"Data added successfully"}
     return jsonify(data)
