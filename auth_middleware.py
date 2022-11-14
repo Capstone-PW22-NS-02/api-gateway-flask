@@ -17,7 +17,7 @@ def token_required(ip_token_map):
             print("Device Brand : ",device.device_brand())
             print("Device Model : ",device.device_model())       
             print("Device Type : ",device.device_type())
-            print("Browser : "httpagentparser.simple_detect(user_agent)[1])
+            print("Browser : ",httpagentparser.simple_detect(user_agent)[1])
             print("Line 1 => IP : ", ip)
             # print("Line 2 => User-Agent : ", user_agent)
 
