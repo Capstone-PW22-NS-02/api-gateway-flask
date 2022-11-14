@@ -9,14 +9,14 @@ def token_required(ip_token_map):
             # ip = request.remote_addr
             ip  = request.environ["HTTP_X_FORWARDED_FOR"]
             user_agent  = request.headers['User-Agent']
-            # device = DeviceDetector(user_agent).parse()
+            device = DeviceDetector(user_agent).parse()
             # print(device.is_bot())  
-            # print(device.os_name())   
-            # print(device.os_version())
-            # print(device.engine())
-            # print(device.device_brand())
-            # print(device.device_model())       
-            # print(device.device_type())
+            print("OS : ",device.os_name())  
+            print("OS Version : ",device.os_version())
+            print("Engine : ",device.engine())
+            print("Device Brand : ",device.device_brand())
+            print("Device Model : ",device.device_model())       
+            print("Device Type : ",device.device_type())
 
             print("Line 1 => IP : ", ip)
             print("Line 2 => User-Agent : ", user_agent)
