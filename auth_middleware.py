@@ -1,6 +1,14 @@
 from flask import request, abort
 from device_detector import DeviceDetector
 import httpagentparser
+import urllib.parse
+from flask_pymongo import pymongo
+
+CONNECTION_STRING = 'mongodb+srv://suryamn:'+urllib.parse.quote_plus("qwerty@1234")+'@capstone.9nomawa.mongodb.net/?retryWrites=true&w=majority'
+client = pymongo.MongoClient(CONNECTION_STRING)
+db = client.get_database('test')
+hashmap_collection = pymongo.collection.Collection(db,'hashmap')
+
 
 def isXSS(user_map,user_details):
 
@@ -12,18 +20,19 @@ def isXSS(user_map,user_details):
     if(user_map['ip'] != user_details['ip']):
         count += 1
 
+    print("count : ",count)
     if(count >= 2):
         return True
     
     return False
         
 
-def token_required(token_user_map):
+def token_required():
     def decorator(api_caller):
         def wrapper(*args, **kwargs):
 
-            # ip = request.remote_addr
-            ip  = request.environ["HTTP_X_FORWARDED_FOR"]
+            ip = request.remote_addr
+            # ip  = request.environ["HTTP_X_FORWARDED_FOR"]
             user_agent  = request.headers['User-Agent']
             device = DeviceDetector(user_agent).parse()
             # print(device.is_bot()) 
@@ -56,18 +65,21 @@ def token_required(token_user_map):
             if "Authorization" in request.headers:
                 token = request.headers["Authorization"]
                 # print("Line 3 => Token : ",token)
-                print("Line 4 => Map : ",token_user_map)
+                # print("Line 4 => Map : ",token_user_map)
 
             
             if not token:
-                print("Line 5 => Map : ",token_user_map)
+                # print("Line 5 => Map : ",token_user_map)
                 return {
                     "message": "Authentication Token is missing!",
                     "data": None,
                     "error": "Unauthorized"
                 }, 401
 
-            if token in token_user_map and isXSS(token_user_map[token], user_details):
+            token_user_map = hashmap_collection.find_one({"token":token},{'_id':0})
+            print("token user map : ",token_user_map)
+
+            if token_user_map and isXSS(token_user_map, user_details):
                 print("Line 6 => Map : ",token_user_map)
                 return {
                     "message": "This is an attempt for XSS attack",
@@ -75,9 +87,17 @@ def token_required(token_user_map):
                     "error": "Unauthorized"
                 }, 401
 
-            elif token not in token_user_map:
-                token_user_map[token] = user_details
-                print("Line 7 => Map : ",token_user_map)
+            elif token_user_map is None:
+                # token_user_map[token] = user_details
+                new_token_map = {
+                    "token" : token,
+                    "browser": user_details["browser"],
+                    "ip": user_details["ip"],
+                    "os_name": user_details["os_name"],
+                }
+                hashmap_collection.insert_one(new_token_map)
+                # print("Line 7 => Map : ",token_user_map)
+
 
             return api_caller(*args, **kwargs)
 
