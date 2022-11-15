@@ -21,6 +21,16 @@ def inventory():
     # print(data)
     return jsonify(data)
 
+@app.route('/inventory/<id>', methods=['GET'])
+@cross_origin()
+@token_required()
+def inventory(id):
+        
+    # data = requests.get("http://localhost:8001/getProducts")
+    data = requests.get("https://inventory-service-capstone.herokuapp.com/getProduct/" + id)
+    data = data.json()
+    return jsonify(data)
+
 @app.route('/addProduct', methods=['POST'])
 @cross_origin()
 @token_required()
