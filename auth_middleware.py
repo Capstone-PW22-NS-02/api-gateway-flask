@@ -41,21 +41,21 @@ def token_required(token_user_map):
                 "ip" : ip
             } 
 
-            print("OS : ", os_name)  
-            print("OS Version : ", os_version)
-            print("Engine : ",engine)
-            print("Device Brand : ", device_brand)
-            print("Device Model : ",device_model)       
-            print("Device Type : ",device_type)
-            print("Browser : ", browser)
-            print("Line 1 => IP : ", ip)
+            # print("OS : ", os_name)  
+            # print("OS Version : ", os_version)
+            # print("Engine : ",engine)
+            # print("Device Brand : ", device_brand)
+            # print("Device Model : ",device_model)       
+            # print("Device Type : ",device_type)
+            # print("Browser : ", browser)
+            # print("Line 1 => IP : ", ip)
             # print("Line 2 => User-Agent : ", user_agent)
 
 
             token = None
             if "Authorization" in request.headers:
                 token = request.headers["Authorization"]
-                print("Line 3 => Token : ",token)
+                # print("Line 3 => Token : ",token)
                 print("Line 4 => Map : ",token_user_map)
 
             
