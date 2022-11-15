@@ -2,14 +2,14 @@ from flask import request, abort
 from device_detector import DeviceDetector
 import httpagentparser
 
-def isXSS(ip_token_map,user_details):
+def isXSS(user_map,user_details):
 
     count = 0
-    if(ip_token_map['os_name'] != user_details['os_name']):
+    if(user_map['os_name'] != user_details['os_name']):
         count += 1
-    if(ip_token_map['browser'] != user_details['browser']):
+    if(user_map['browser'] != user_details['browser']):
         count += 1
-    if(ip_token_map['ip'] != user_details['ip']):
+    if(user_map['ip'] != user_details['ip']):
         count += 1
 
     if(count >= 2):
@@ -18,7 +18,7 @@ def isXSS(ip_token_map,user_details):
     return False
         
 
-def token_required(ip_token_map):
+def token_required(token_user_map):
     def decorator(api_caller):
         def wrapper(*args, **kwargs):
 
@@ -56,28 +56,28 @@ def token_required(ip_token_map):
             if "Authorization" in request.headers:
                 token = request.headers["Authorization"]
                 print("Line 3 => Token : ",token)
-                print("Line 4 => Map : ",ip_token_map)
+                print("Line 4 => Map : ",token_user_map)
 
             
             if not token:
-                print("Line 5 => Map : ",ip_token_map)
+                print("Line 5 => Map : ",token_user_map)
                 return {
                     "message": "Authentication Token is missing!",
                     "data": None,
                     "error": "Unauthorized"
                 }, 401
 
-            if token in ip_token_map and isXSS(ip_token_map, user_details):
-                print("Line 6 => Map : ",ip_token_map)
+            if token in token_user_map and isXSS(token_user_map[token], user_details):
+                print("Line 6 => Map : ",token_user_map)
                 return {
                     "message": "This is an attempt for XSS attack",
                     "data": None,
                     "error": "Unauthorized"
                 }, 401
 
-            elif token not in ip_token_map:
-                ip_token_map[token] = user_details
-                print("Line 7 => Map : ",ip_token_map)
+            elif token not in token_user_map:
+                token_user_map[token] = user_details
+                print("Line 7 => Map : ",token_user_map)
 
             return api_caller(*args, **kwargs)
 

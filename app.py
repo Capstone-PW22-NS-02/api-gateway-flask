@@ -8,11 +8,11 @@ app = Flask(__name__, template_folder='.')
 # app.secret_key = 'thisisjustarandomstring'
 CORS(app)
 
-ip_token_map = {}
+token_user_map = {}
 
 @app.route('/inventory', methods=['GET'])
 @cross_origin()
-@token_required(ip_token_map)
+@token_required(token_user_map)
 def inventory():
         
     # data = requests.get("http://localhost:8001/getProducts")
@@ -23,7 +23,7 @@ def inventory():
 
 @app.route('/addProduct', methods=['POST'])
 @cross_origin()
-@token_required(ip_token_map)
+@token_required(token_user_map)
 def addProduct():        
 
     body = request.get_json()
