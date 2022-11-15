@@ -24,7 +24,7 @@ def inventory():
 @app.route('/inventory/<id>', methods=['GET'])
 @cross_origin()
 @token_required()
-def inventory(id):
+def getProduct(id):
         
     # data = requests.get("http://localhost:8001/getProducts")
     data = requests.get("https://inventory-service-capstone.herokuapp.com/getProduct/" + id)
