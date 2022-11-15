@@ -27,7 +27,7 @@ def inventory():
 def getProduct(id):
         
     # data = requests.get("http://localhost:8001/getProducts")
-    data = requests.get("https://inventory-service-capstone.herokuapp.com/inventory/" + id)
+    data = requests.get("https://inventory-service-capstone.herokuapp.com/getProduct/" + id)
     data = data.json()
     return jsonify(data)
 
