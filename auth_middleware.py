@@ -114,11 +114,14 @@ def token_required():
             user_agent  = request.headers['User-Agent']
             print("User-Agent : ", user_agent)
             print("I'm in line 1")
-            device = DeviceDetector(user_agent).parse()
+            # device = DeviceDetector(user_agent).parse()
+            device = 'Laptop'
             print("Device : ", device)
             # print(device.is_bot()) 
             print("I'm in line 4")
-            os_name = device.os_name()
+            # os_name = device.os_name()
+            print(httpagentparser.detect(user_agent))
+            os_name = httpagentparser.detect(user_agent)['os']['name']
             # os_version = device.os_version()
             # engine = device.engine()
             # device_brand = device.device_brand()
