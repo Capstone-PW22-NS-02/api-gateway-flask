@@ -35,16 +35,18 @@ def token_required():
             # ip = request.remote_addr
             ip  = request.environ["HTTP_X_FORWARDED_FOR"]
             user_agent  = request.headers['User-Agent']
+            print("I'm in line 1")
             device = DeviceDetector(user_agent).parse()
             # print(device.is_bot()) 
             os_name = device.os_name()
-            os_version = device.os_version()
-            engine = device.engine()
-            device_brand = device.device_brand()
-            device_model = device.device_model()
-            device_type = device.device_type()
+            # os_version = device.os_version()
+            # engine = device.engine()
+            # device_brand = device.device_brand()
+            # device_model = device.device_model()
+            # device_type = device.device_type()
+            print("I'm in line 2")
             browser = httpagentparser.simple_detect(user_agent)[1]
-
+            print("I'm in line 3")
             user_details = {
                 "os_name": os_name,
                 "browser": browser,
