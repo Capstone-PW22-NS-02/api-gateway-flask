@@ -18,7 +18,9 @@ def inventory():
     # data = requests.get("http://localhost:8001/getProducts")
     data = requests.get("https://inventory-service.onrender.com/getProducts")
     data = data.json()
-    # print(data)
+    print("#########")
+    print(data)
+    print("#########")
     return jsonify(data)
 
 @app.route('/inventory/<id>', methods=['GET'])
