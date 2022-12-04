@@ -9,9 +9,11 @@ client = pymongo.MongoClient(CONNECTION_STRING)
 db = client.get_database('test')
 hashmap_collection = pymongo.collection.Collection(db,'hashmap')
 
+print("DB connection established")
 
 def isXSS(user_map,user_details):
 
+    print("Inside inXSS")
     count = 0
     if(user_map['os_name'] != user_details['os_name']):
         count += 1
@@ -37,20 +39,23 @@ def token_required():
             user_agent  = request.headers['User-Agent']
             print("I'm in line 1")
             try:
+                print("I'm in line 2")
                 device = DeviceDetector(user_agent).parse()
             except Exception as e:
+                print("I'm in line 3")
                 print("Try catch")
                 print(e)
             # print(device.is_bot()) 
+            print("I'm in line 4")
             os_name = device.os_name()
             # os_version = device.os_version()
             # engine = device.engine()
             # device_brand = device.device_brand()
             # device_model = device.device_model()
             # device_type = device.device_type()
-            print("I'm in line 2")
+            print("I'm in line 5")
             browser = httpagentparser.simple_detect(user_agent)[1]
-            print("I'm in line 3")
+            print("I'm in line 6")
             user_details = {
                 "os_name": os_name,
                 "browser": browser,
@@ -58,14 +63,14 @@ def token_required():
             } 
 
             print(user_details)
-            # print("OS : ", os_name)  
+            print("OS : ", os_name)  
             # print("OS Version : ", os_version)
             # print("Engine : ",engine)
             # print("Device Brand : ", device_brand)
             # print("Device Model : ",device_model)       
             # print("Device Type : ",device_type)
             # print("Browser : ", browser)
-            # print("Line 1 => IP : ", ip)
+            print("Line 1 => IP : ", ip)
             # print("Line 2 => User-Agent : ", user_agent)
 
 

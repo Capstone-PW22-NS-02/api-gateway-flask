@@ -1,6 +1,6 @@
 
 from flask import Flask, request, flash, redirect, url_for, jsonify
-# from auth_middleware import token_required
+from auth_middleware import token_required
 from flask_cors import CORS,cross_origin
 import requests
 
@@ -12,7 +12,7 @@ CORS(app)
 
 @app.route('/inventory', methods=['GET'])
 @cross_origin()
-# @token_required()
+@token_required()
 def inventory():
         
     # data = requests.get("http://localhost:8001/getProducts")
