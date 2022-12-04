@@ -16,6 +16,7 @@ CORS(app)
 def inventory():
         
     # data = requests.get("http://localhost:8001/getProducts")
+    print("Inside api-gateway-inventory ##########")
     data = requests.get("https://inventory-service.onrender.com/getProducts")
     data = data.json()
     print("#########")
