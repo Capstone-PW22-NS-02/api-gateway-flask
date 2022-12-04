@@ -36,7 +36,11 @@ def token_required():
             ip  = request.environ["HTTP_X_FORWARDED_FOR"]
             user_agent  = request.headers['User-Agent']
             print("I'm in line 1")
-            device = DeviceDetector(user_agent).parse()
+            try:
+                device = DeviceDetector(user_agent).parse()
+            except Exception as e:
+                print("Try catch")
+                print(e)
             # print(device.is_bot()) 
             os_name = device.os_name()
             # os_version = device.os_version()
