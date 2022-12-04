@@ -26,7 +26,7 @@ def inventory():
 
 @app.route('/inventory/<id>', methods=['GET'])
 @cross_origin()
-# @token_required()
+@token_required()
 def getProduct(id):
         
     # data = requests.get("http://localhost:8001/getProducts")
@@ -36,7 +36,7 @@ def getProduct(id):
 
 @app.route('/addProduct', methods=['POST'])
 @cross_origin()
-# @token_required()
+@token_required()
 def addProduct():        
 
     body = request.get_json()
