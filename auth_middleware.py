@@ -31,8 +31,9 @@ def token_required():
     def decorator(api_caller):
         def wrapper(*args, **kwargs):
 
-            ip = request.remote_addr
-            # ip  = request.environ["HTTP_X_FORWARDED_FOR"]
+            print("Inside auth middleware")
+            # ip = request.remote_addr
+            ip  = request.environ["HTTP_X_FORWARDED_FOR"]
             user_agent  = request.headers['User-Agent']
             device = DeviceDetector(user_agent).parse()
             # print(device.is_bot()) 
@@ -50,6 +51,7 @@ def token_required():
                 "ip" : ip
             } 
 
+            print(user_details)
             # print("OS : ", os_name)  
             # print("OS Version : ", os_version)
             # print("Engine : ",engine)
