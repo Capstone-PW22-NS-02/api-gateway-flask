@@ -109,9 +109,10 @@ def token_required():
 
             print("Inside auth middleware")
             # ip = request.remote_addr
-            ip  = request.environ["HTTP_X_FORWARDED_FOR"][0]
+            ip  = request.environ["HTTP_X_FORWARDED_FOR"].split(',')[0]
             print("Line 1 => IP : ", ip)
             user_agent  = request.headers['User-Agent']
+            print("User-Agent : ", user_agent)
             print("I'm in line 1")
             device = DeviceDetector(user_agent).parse()
             print("Device : ", device)
