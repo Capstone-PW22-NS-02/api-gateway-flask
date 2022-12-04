@@ -41,8 +41,8 @@ def token_required():
             try:
                 print("I'm in line 2")
                 device = DeviceDetector(user_agent).parse()
+                print("I'm in line 2.1")
             except Exception as e:
-                print("I'm in line 3")
                 print("Try catch")
                 print(e)
             # print(device.is_bot()) 
