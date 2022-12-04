@@ -16,7 +16,7 @@ CORS(app)
 def inventory():
         
     # data = requests.get("http://localhost:8001/getProducts")
-    data = requests.get("https://inventory-service-capstone.herokuapp.com/getProducts")
+    data = requests.get("https://inventory-service.onrender.com/getProducts")
     data = data.json()
     # print(data)
     return jsonify(data)
@@ -27,7 +27,7 @@ def inventory():
 def getProduct(id):
         
     # data = requests.get("http://localhost:8001/getProducts")
-    data = requests.get("https://inventory-service-capstone.herokuapp.com/getProduct/" + id)
+    data = requests.get("https://inventory-service.onrender.com/getProduct/" + id)
     data = data.json()
     return jsonify(data)
 
@@ -37,9 +37,9 @@ def getProduct(id):
 def addProduct():        
 
     body = request.get_json()
-    print(body)
+    print(body) 
     # data = requests.post("http://localhost:8001/addProduct",json=body)
-    data = requests.post("https://inventory-service-capstone.herokuapp.com/addProduct", json=body)
+    data = requests.post("https://inventory-service.onrender.com/addProduct", json=body)
     data = data.json()
     # data = {'msg':"Data added successfully"}
     return jsonify(data)

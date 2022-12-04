@@ -31,8 +31,8 @@ def token_required():
     def decorator(api_caller):
         def wrapper(*args, **kwargs):
 
-            # ip = request.remote_addr
-            ip  = request.environ["HTTP_X_FORWARDED_FOR"]
+            ip = request.remote_addr
+            # ip  = request.environ["HTTP_X_FORWARDED_FOR"]
             user_agent  = request.headers['User-Agent']
             device = DeviceDetector(user_agent).parse()
             # print(device.is_bot()) 
