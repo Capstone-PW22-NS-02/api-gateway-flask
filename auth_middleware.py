@@ -9,85 +9,8 @@ client = pymongo.MongoClient(CONNECTION_STRING)
 db = client.get_database('test')
 hashmap_collection = pymongo.collection.Collection(db,'hashmap')
 
-print("DB connection established")
-
-# def isXSS(user_map,user_details):
-
-#     print("Inside inXSS")
-#     if(user_map['ip'] != user_details['ip']):
-#         return True
-    
-#     return False
-        
-# def token_required():
-#     def decorator(api_caller):
-#         def wrapper(*args, **kwargs):
-
-#             print("Inside auth middleware")
-#             # ip = request.remote_addr
-#             ip  = request.environ["HTTP_X_FORWARDED_FOR"]
-#             print("I'm in line 1")
-#             print("Line 1 => IP : ", ip)
-
-#             user_details = {
-#                 "ip" : ip
-#             } 
-
-#             token = None
-#             if "Authorization" in request.headers:
-#                 token = request.headers["Authorization"]
-#                 # print("Line 3 => Token : ",token)
-#                 # print("Line 4 => Map : ",token_user_map)
-
-            
-#             if not token:
-#                 # print("Line 5 => Map : ",token_user_map)
-#                 return {
-#                     "message": "Authentication Token is missing!",
-#                     "data": None,
-#                     "error": "Unauthorized"
-#                 }, 401
-
-#             token_user_map = hashmap_collection.find_one({"token":token},{'_id':0})
-#             print("token user map : ",token_user_map)
-
-#             if token_user_map and isXSS(token_user_map, user_details):
-#                 print("Line 6 => Map : ",token_user_map)
-#                 return {
-#                     "message": "This is an attempt for XSS attack",
-#                     "data": None,
-#                     "error": "Unauthorized"
-#                 }, 401
-
-#             elif token_user_map is None:
-#                 # token_user_map[token] = user_details
-#                 new_token_map = {
-#                     "token" : token,
-#                     "ip": ip,
-#                 }
-#                 hashmap_collection.insert_one(new_token_map)
-#                 # print("Line 7 => Map : ",token_user_map)
-
-
-#             return api_caller(*args, **kwargs)
-
-#         wrapper.__name__ = api_caller.__name__
-#         return wrapper
-#     return decorator
-
-
-
-
-
-
-
-
-# Original Code
-
-
 def isXSS(user_map,user_details):
 
-    print("Inside inXSS")
     count = 0
     if(user_map['os_name'] != user_details['os_name']):
         count += 1
@@ -107,29 +30,29 @@ def token_required():
     def decorator(api_caller):
         def wrapper(*args, **kwargs):
 
-            print("Inside auth middleware")
+            # print("Inside auth middleware")
             # ip = request.remote_addr
             ip  = request.environ["HTTP_X_FORWARDED_FOR"].split(',')[0]
-            print("Line 1 => IP : ", ip)
+            # print("Line 1 => IP : ", ip)
             user_agent  = request.headers['User-Agent']
-            print("User-Agent : ", user_agent)
-            print("I'm in line 1")
+            # print("User-Agent : ", user_agent)
+            # print("I'm in line 1")
             # device = DeviceDetector(user_agent).parse()
-            device = 'Laptop'
-            print("Device : ", device)
+            # device = 'Laptop'
+            # print("Device : ", device)
             # print(device.is_bot()) 
-            print("I'm in line 4")
+            # print("I'm in line 4")
             # os_name = device.os_name()
-            print(httpagentparser.detect(user_agent))
+            # print(httpagentparser.detect(user_agent))
             os_name = httpagentparser.detect(user_agent)['os']['name']
             # os_version = device.os_version()
             # engine = device.engine()
             # device_brand = device.device_brand()
             # device_model = device.device_model()
             # device_type = device.device_type()
-            print("I'm in line 5")
+            # print("I'm in line 5")
             browser = httpagentparser.simple_detect(user_agent)[1]
-            print("I'm in line 6")
+            # print("I'm in line 6")
             user_details = {
                 "os_name": os_name,
                 "browser": browser,
@@ -137,14 +60,14 @@ def token_required():
             } 
 
             print(user_details)
-            print("OS : ", os_name)  
+            # print("OS : ", os_name)  
             # print("OS Version : ", os_version)
             # print("Engine : ",engine)
             # print("Device Brand : ", device_brand)
             # print("Device Model : ",device_model)       
             # print("Device Type : ",device_type)
             # print("Browser : ", browser)
-            print("Line 1 => IP : ", ip)
+            # print("Line 1 => IP : ", ip)
             # print("Line 2 => User-Agent : ", user_agent)
 
 

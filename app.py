@@ -5,7 +5,6 @@ from flask_cors import CORS,cross_origin
 import requests
 
 app = Flask(__name__, template_folder='.')
-# app.secret_key = 'thisisjustarandomstring'
 CORS(app)
 
 # token_user_map = {}
@@ -15,13 +14,8 @@ CORS(app)
 @token_required()
 def inventory():
         
-    # data = requests.get("http://localhost:8001/getProducts")
-    print("Inside api-gateway-inventory ##########")
     data = requests.get("https://inventory-service.onrender.com/getProducts")
     data = data.json()
-    print("#########")
-    print(data)
-    print("#########")
     return jsonify(data)
 
 @app.route('/inventory/<id>', methods=['GET'])
@@ -29,7 +23,6 @@ def inventory():
 @token_required()
 def getProduct(id):
         
-    # data = requests.get("http://localhost:8001/getProducts")
     data = requests.get("https://inventory-service.onrender.com/getProduct/" + id)
     data = data.json()
     return jsonify(data)
@@ -41,7 +34,6 @@ def addProduct():
 
     body = request.get_json()
     print(body) 
-    # data = requests.post("http://localhost:8001/addProduct",json=body)
     data = requests.post("https://inventory-service.onrender.com/addProduct", json=body)
     data = data.json()
     # data = {'msg':"Data added successfully"}
